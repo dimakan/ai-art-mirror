@@ -1,4 +1,4 @@
-## ai-art-mirror webcam script
+## ai-art-mirror RealSense camera script
 
 
 ************ Added RealSense SR300 and D4* Depth cameras for beckgraund replacement to original style image ************

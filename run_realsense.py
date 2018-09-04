@@ -12,34 +12,27 @@ from datetime import datetime
 # First import the library
 import pyrealsense2 as rs
 
-models_all=[{"ckpt":"models/ckpt_cubist_b20_e4_cw05/fns.ckpt", "style":"styles/cubist-landscape-justineivu-geanina.jpg"},
-    {"ckpt":"models/ckpt_hokusai_b20_e4_cw15/fns.ckpt", "style":"styles/hokusai.jpg"},
-    {"ckpt":"models/wave/wave.ckpt", "style":"styles/hokusai.jpg"},
-    {"ckpt":"models/ckpt_kandinsky_b20_e4_cw05/fns.ckpt", "style":"styles/kandinsky2.jpg"},
-    {"ckpt":"models/ckpt_liechtenstein_b20_e4_cw15/fns.ckpt", "style":"styles/liechtenstein.jpg"},
-    {"ckpt":"models/ckpt_maps3_b5_e2_cw10_tv1_02/fns.ckpt", "style":"styles/maps3.jpg"},
-    {"ckpt":"models/ckpt_wu_b20_e4_cw15/fns.ckpt", "style":"styles/wu4.jpg"},
-    {"ckpt":"models/ckpt_elsalahi_b20_e4_cw05/fns.ckpt", "style":"styles/elsalahi2.jpg"},
-    {"ckpt":"models/scream/scream.ckpt", "style":"styles/the_scream.jpg"},
-    {"ckpt":"models/udnie/udnie.ckpt", "style":"styles/udnie.jpg"},
-    {"ckpt":"models/ckpt_clouds_b5_e2_cw05_tv1_04/fns.ckpt", "style":"styles/clouds.jpg"}]
+models_all=[{"ckpt":"models/ckpt_cubist_b20_e4_cw05/fns.ckpt", "style":"styles/cubist-landscape-justineivu-geanina.jpg", "style_name":""},
+    {"ckpt":"models/ckpt_hokusai_b20_e4_cw15/fns.ckpt", "style":"styles/hokusai.jpg", "style_name":""},
+    {"ckpt":"models/wave/wave.ckpt", "style":"styles/hokusai.jpg", "style_name":""},
+    {"ckpt":"models/ckpt_kandinsky_b20_e4_cw05/fns.ckpt", "style":"styles/kandinsky2.jpg", "style_name":""},
+    {"ckpt":"models/ckpt_liechtenstein_b20_e4_cw15/fns.ckpt", "style":"styles/liechtenstein.jpg", "style_name":""},
+    {"ckpt":"models/ckpt_maps3_b5_e2_cw10_tv1_02/fns.ckpt", "style":"styles/maps3.jpg", "style_name":""},
+    {"ckpt":"models/ckpt_wu_b20_e4_cw15/fns.ckpt", "style":"styles/wu4.jpg", "style_name":""},
+    {"ckpt":"models/ckpt_elsalahi_b20_e4_cw05/fns.ckpt", "style":"styles/elsalahi2.jpg", "style_name":""},
+    {"ckpt":"models/scream/scream.ckpt", "style":"styles/the_scream.jpg", "style_name":""},
+    {"ckpt":"models/udnie/udnie.ckpt", "style":"styles/udnie.jpg", "style_name":""},
+    {"ckpt":"models/ckpt_clouds_b5_e2_cw05_tv1_04/fns.ckpt", "style":"styles/clouds.jpg", "style_name":""}]
 
 
-models=[{"ckpt":"models/ckpt_cubist_b20_e4_cw05/fns.ckpt", "style":"styles/cubist-landscape-justineivu-geanina.jpg"},
-    {"ckpt":"models/ckpt_hokusai_b20_e4_cw15/fns.ckpt", "style":"styles/hokusai.jpg"},
-    {"ckpt":"models/ckpt_kandinsky_b20_e4_cw05/fns.ckpt", "style":"styles/kandinsky2.jpg"},
-    {"ckpt":"models/ckpt_liechtenstein_b20_e4_cw15/fns.ckpt", "style":"styles/liechtenstein.jpg"},
-    {"ckpt":"models/ckpt_wu_b20_e4_cw15/fns.ckpt", "style":"styles/wu4.jpg"},
-    {"ckpt":"models/ckpt_elsalahi_b20_e4_cw05/fns.ckpt", "style":"styles/elsalahi2.jpg"},
-#    {"ckpt":"models/scream/scream.ckpt", "style":"styles/the_scream.jpg"},
-#    {"ckpt":"models/udnie/udnie.ckpt", "style":"styles/udnie.jpg"},
-    {"ckpt":"models/ckpt_maps3_b5_e2_cw10_tv1_02/fns.ckpt", "style":"styles/maps3.jpg"},
-    {"ckpt": "models/ckpt_rain_princess_b20_e4_cw05/fns.ckpt", "style": "styles/rain_princess.jpg"},
-    {"ckpt": "models/ckpt_la_muse_b20_e4_cw05/fns.ckpt", "style": "styles/la_muse.jpg"}]
+models=[
+    {"ckpt":"models/ckpt_cubist_b20_e4_cw05/fns.ckpt", "style":"styles/cubist-landscape-justineivu-geanina.jpg", "style_name":"Cubist"},
+    {"ckpt":"models/ckpt_hokusai_b20_e4_cw15/fns.ckpt", "style":"styles/hokusai.jpg", "style_name":"Hokusai"},
+    {"ckpt":"models/ckpt_wu_b20_e4_cw15/fns.ckpt", "style":"styles/wu4.jpg", "style_name":"Wu"},
+    {"ckpt":"models/ckpt_elsalahi_b20_e4_cw05/fns.ckpt", "style":"styles/elsalahi2.jpg", "style_name":"Elsalahi"},
+    {"ckpt": "models/ckpt_rain_princess_b20_e4_cw05/fns.ckpt", "style": "styles/rain_princess.jpg", "style_name":"Rain Princess"},
+]
 
-#models=[
-#    {"ckpt": "checkpoints/fns.ckpt", "style": "styles/la_muse.jpg"},
-#    {"ckpt": "models/ckpt_la_muse_b20_e4_cw05/fns.ckpt", "style": "styles/la_muse.jpg"}]
 
 # parser
 parser = argparse.ArgumentParser()
@@ -145,6 +138,7 @@ def main(device_id, width, disp_width, disp_source, horizontal, num_sec):
     g = tf.Graph()
     soft_config = tf.ConfigProto(allow_soft_placement=True)
     soft_config.gpu_options.allow_growth = True
+    do_load_checkpoint = True
     with g.as_default(), g.device(device_t), tf.Session(config=soft_config) as sess:
         #cam = cv2.VideoCapture(device_id)
         #cam_width, cam_height = get_camera_shape(cam)
@@ -161,13 +155,23 @@ def main(device_id, width, disp_width, disp_source, horizontal, num_sec):
         img_placeholder = tf.placeholder(tf.float32, shape=batch_shape, name='img_placeholder')
         preds = transform.net(img_placeholder)
 
-        # load checkpoint
-        load_checkpoint(models[idx_model]["ckpt"], sess)
-        style = cv2.imread(models[idx_model]["style"])
-        style_resized = cv2.resize(style, dim, interpolation=cv2.INTER_AREA)
+
 
         # enter cam loop
         while True:
+            if do_load_checkpoint:
+                # load checkpoint
+                print("load %d / %d : %s " % (idx_model, len(models), models[idx_model]))
+                load_checkpoint(models[idx_model]["ckpt"], sess)
+                style_path = models[idx_model]["style"]
+                style_name = models[idx_model]["style_name"]
+                style = cv2.imread(style_path)
+                style_resized = cv2.resize(style, dim, interpolation=cv2.INTER_AREA)
+                cv2.putText(style_resized, style_name, (30, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255))
+                do_load_checkpoint = False
+
+
+
             #ret, frame = cam.read()
             # Get frameset of color and depth
             frames = pipeline.wait_for_frames()
@@ -230,26 +234,23 @@ def main(device_id, width, disp_width, disp_source, horizontal, num_sec):
             key_ = cv2.waitKey(1)
             if key_ == 27:
                 break
+            elif key_ == ord('q'):
+                break
             elif key_ == ord('a'):
                 idx_model = (idx_model + len(models) - 1) % len(models)
-                print("load %d / %d : %s " % (idx_model, len(models), models[idx_model]))
-                load_checkpoint(models[idx_model]["ckpt"], sess)
-                style = cv2.imread(models[idx_model]["style"])
+                do_load_checkpoint = True
             elif key_ == ord('s'):
                 idx_model = (idx_model + 1) % len(models)
-                print("load %d / %d : %s " % (idx_model, len(models), models[idx_model]))
-                load_checkpoint(models[idx_model]["ckpt"], sess)
-                style = cv2.imread(models[idx_model]["style"])
+                do_load_checkpoint = True
+
 
             t2 = datetime.now()
             dt = t2-t1
             if num_sec>0 and dt.seconds > num_sec:
                 t1 = datetime.now()
                 idx_model = (idx_model + 1) % len(models)
-                print("load %d / %d : %s " % (idx_model, len(models), models[idx_model]))
-                load_checkpoint(models[idx_model]["ckpt"], sess)
-                style = cv2.imread(models[idx_model]["style"])
-                style_resized = cv2.resize(style, dim, interpolation=cv2.INTER_AREA)
+                do_load_checkpoint = True
+
 
         # done
         pipeline.stop()

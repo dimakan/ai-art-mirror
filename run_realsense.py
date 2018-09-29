@@ -47,7 +47,7 @@ parser.add_argument('--num_sec', type=int, help='number of seconds to hold curre
 dim_low = (320, 240)
 dim_med = (640, 480)
 dim_hd = (1280, 720)
-dim = dim_med
+dim = dim_hd
 # perform the actual resizing of the image and show it
 
 
@@ -79,7 +79,7 @@ print("Depth Scale is: ", depth_scale)
 
 # We will be removing the background of objects more than
 #  clipping_distance_in_meters meters away
-clipping_distance_in_meters = 1 #1 meter
+clipping_distance_in_meters = 2 #1 meter
 clipping_distance = clipping_distance_in_meters / depth_scale
 
 # Create an align object

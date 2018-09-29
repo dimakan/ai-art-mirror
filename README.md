@@ -1,23 +1,28 @@
-## ai-art-mirror webcam script
+## ai-art-mirror RealSense camera script
+
+
+************ Added RealSense SR300 and D4* Depth cameras for beckgraund replacement to original style image ************
+
 
 This is a fork of [fast-style-transfer](https://github.com/lengstrom/fast-style-transfer) which has an additional script, `run_webcam.py` to apply style models live to a webcam stream. Go to the README of the original page for instructions on how to train your own models, apply them to images and movies, and all the original functionality of that repository.
+
 
 ### Installation
 
  - [CUDA](https://developer.nvidia.com/cuda-downloads) + [CuDNN](https://developer.nvidia.com/cudnn)
  - [TensorFlow](https://www.tensorflow.org/install/) GPU-enabled
  - [OpenCV](https://pypi.python.org/pypi/opencv-python) (this is tested on cv 2.4, not most recent, but presumably both work)
-
+ - [Intel® RealSense SDK 2.0™](https://github.com/IntelRealSense/librealsense) Supports SR300 and D4* Depth cameras
 
 ### Setting up models
 
 Pre-trained models for [Picasso, Hokusai, Kandinsky, Liechtenstein, Wu Guanzhong, Ibrahim el-Salahi, and Google Maps](https://drive.google.com/open?id=0B3WXSfqxKDkFUFl3YllzS1ZqbkU).
 
-At the top of the file `run_webcam.py`, there are paths to model files and style images in the variable list `models`. They are not included in the repo because of space. If you'd like to use the pre-trained models referred to up there, these models may be [downloaded from this shared folder](https://drive.google.com/open?id=0B3WXSfqxKDkFUFl3YllzS1ZqbkU). To train your own, refer to the [original documentation](https://github.com/lengstrom/fast-style-transfer).
+At the top of the file `run_realsense.py`, there are paths to model files and style images in the variable list `models`. They are not included in the repo because of space. If you'd like to use the pre-trained models referred to up there, these models may be [downloaded from this shared folder](https://drive.google.com/open?id=0B3WXSfqxKDkFUFl3YllzS1ZqbkU). To train your own, refer to the [original documentation](https://github.com/lengstrom/fast-style-transfer).
 
 ### Usage
 
-    python run_webcam.py --width 360 --disp_width 800 --disp_source 1 --horizontal 1
+    python run_realsense.py --width 320 --disp_width 320 --disp_source 0 --horizontal 1 --num_sec 30
 
 There are three arguments:
 

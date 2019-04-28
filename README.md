@@ -36,7 +36,7 @@ You can toggle between the different models by hitting the 'a' and 's' keys on y
 
 ### Example
 
-![stylized webcam](styles/stylenet_webcam.gif)
+![stylized webcam](styles/realsense.gif)
 
 
 ### Requirements

@@ -4,7 +4,7 @@
 ************ Added RealSense SR300 and D4* Depth cameras for beckgraund replacement to original style image ************
 
 
-This is a fork of [fast-style-transfer](https://github.com/lengstrom/fast-style-transfer) which has an additional script, `run_webcam.py` to apply style models live to a webcam stream. Go to the README of the original page for instructions on how to train your own models, apply them to images and movies, and all the original functionality of that repository.
+This is a fork of [fast-style-transfer](https://github.com/lengstrom/fast-style-transfer) which has an additional script, `run_realsense.py` to apply style models live to a webcam stream. Go to the README of the original page for instructions on how to train your own models, apply them to images and movies, and all the original functionality of that repository.
 
 
 ### Installation
